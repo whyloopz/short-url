@@ -15,11 +15,12 @@ var (
 )
 
 type ShortUrl struct {
-	originUrl string
+	originUrl  string
+	expireTime int
 }
 
-func NewShortUrl(OriginUrl string) *ShortUrl {
-	return &ShortUrl{originUrl: OriginUrl}
+func NewShortUrl(OriginUrl string, expireTime int) *ShortUrl {
+	return &ShortUrl{originUrl: OriginUrl, expireTime: expireTime}
 }
 
 func (s ShortUrl) ValidateUrl() error {
@@ -50,4 +51,19 @@ func (s ShortUrl) GenShortUrl() string {
 	encodeMd5 := md5.Sum([]byte(composeUrl))
 
 	return fmt.Sprintf("%x", encodeMd5)[:6]
+}
+
+func (s ShortUrl) GetDefaultExpireAt() int {
+	if s.expireTime == 0 {
+		return 30
+	}
+
+	return s.expireTime
+}
+
+func (s ShortUrl) GetExpireAt() int64 {
+	return gotime.
+		Now().
+		AddDate(0, 0, s.GetDefaultExpireAt()).
+		Unix()
 }

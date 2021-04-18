@@ -78,13 +78,29 @@ func TestShortUrl_GenShortUrl(t *testing.T) {
 	gotime.Freeze(freeze)
 
 	// 1587230237123456788_url1
-	shortUrl := NewShortUrl("url1")
+	shortUrl := NewShortUrl("url1", 0)
 	require.Equal(t, "b3df06", shortUrl.GenShortUrl())
 
 	freeze = time.Date(2020, 4, 18, 17, 17, 17, 123456789, time.UTC)
 	gotime.Freeze(freeze)
 
 	// 1587230237123456789_url2
-	shortUrl = NewShortUrl("url2")
+	shortUrl = NewShortUrl("url2", 0)
 	require.Equal(t, "8cde9f", shortUrl.GenShortUrl())
+}
+
+func TestShortUrl_GetDefaultExpireAt(t *testing.T) {
+	shortUrl := NewShortUrl("url1", 0)
+	require.Equal(t, 30, shortUrl.GetDefaultExpireAt())
+
+	shortUrl = NewShortUrl("url1", 1)
+	require.Equal(t, 1, shortUrl.GetDefaultExpireAt())
+}
+
+func TestShortUrl_GetExpireAt(t *testing.T) {
+	freeze := time.Date(2020, 4, 18, 17, 17, 17, 123456789, time.UTC)
+	gotime.Freeze(freeze)
+
+	shortUrl := NewShortUrl("url1", 0)
+	require.Equal(t, int64(1589822237), shortUrl.GetExpireAt())
 }

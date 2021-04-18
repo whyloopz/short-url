@@ -9,8 +9,8 @@ func (s ShortUrl) CreateShortUrl(input *CreateShortUrlInput) (*CreateShortUrlOut
 		return nil, ErrBadRequestValidateInput.WithCause(err)
 	}
 
-	shortUrlDomain := domain.NewShortUrl(input.Url)
-	if err := shortUrlDomain.ValidateUrl(); err != nil {
+	domainShortUrl := domain.NewShortUrl(input.Url, input.ExpireTime)
+	if err := domainShortUrl.ValidateUrl(); err != nil {
 		return nil, err
 	}
 
@@ -18,13 +18,13 @@ func (s ShortUrl) CreateShortUrl(input *CreateShortUrlInput) (*CreateShortUrlOut
 	if err != nil {
 		return nil, err
 	}
-	if shortUrlDomain.IsBlackList(blacklists) {
-		return nil, ErrBadRequestValidateInput
+	if domainShortUrl.IsBlackList(blacklists) {
+		return nil, ErrBadRequestBlacklistUrl
 	}
 
-	shortUrl := shortUrlDomain.GenShortUrl()
-	if err := s.mongoRepo.SaveShortUrl(shortUrl, input.Url, input.GetExpireAt()); err != nil {
-		return nil, ErrBadRequestValidateInput
+	shortUrl := domainShortUrl.GenShortUrl()
+	if err := s.mongoRepo.SaveShortUrl(shortUrl, input.Url, domainShortUrl.GetExpireAt()); err != nil {
+		return nil, err
 	}
 
 	return &CreateShortUrlOutput{

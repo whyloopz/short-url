@@ -8,6 +8,7 @@ import (
 
 var (
 	ErrBadRequestValidateInput = goerror.DefineBadRequest("ErrBadRequestValidateInput", "input not correct format")
+	ErrBadRequestBlacklistUrl  = goerror.DefineBadRequest("ErrBadRequestBlacklistUrl", "url is blacklist")
 )
 
 type Service interface {
