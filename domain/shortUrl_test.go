@@ -77,7 +77,7 @@ func TestShortUrl_GenShortUrl(t *testing.T) {
 	freeze := time.Date(2020, 4, 18, 17, 17, 17, 123456788, time.UTC)
 	gotime.Freeze(freeze)
 
-	// 1587230237000000177_url1
+	// 1587230237123456788_url1
 	shortUrl := NewShortUrl("url1")
 	require.Equal(t, "b3df06", shortUrl.GenShortUrl())
 
