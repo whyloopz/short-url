@@ -21,11 +21,11 @@ func setupMiddleware(app *fiber.App) {
 func main() {
 	env := config.GetEnv()
 	sv := service.New()
-	h := handler.New(sv)
+	h := handler.NewFiberHandler(sv)
 
 	app := fiber.New()
 	setupMiddleware(app)
-	h.SetupRouter(app)
+	h.SetupFiberRouter(app)
 
 	if err := app.Listen(":" + env.Port); err != nil {
 		panic(err)
