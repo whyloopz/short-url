@@ -4,9 +4,9 @@ import (
 	"crypto/md5"
 	"fmt"
 	"github.com/nqmt/goerror"
+	"github.com/nqmt/gotime/v2"
 	"regexp"
 	"strconv"
-	"time"
 )
 
 var (
@@ -23,7 +23,7 @@ func NewShortUrl(OriginUrl string) *ShortUrl {
 }
 
 func (s ShortUrl) ValidateUrl() error {
-	match, err := regexp.MatchString(`https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)`, s.originUrl)
+	match, err := regexp.MatchString(`https?://(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)`, s.originUrl)
 	if err != nil {
 		return ErrInternalServerRegex.WithCause(err)
 	}
@@ -46,7 +46,7 @@ func (s ShortUrl) IsBlackList(blacklists []string) bool {
 }
 
 func (s ShortUrl) GenShortUrl() string {
-	composeUrl := strconv.FormatInt(time.Now().UnixNano(), 10) + "_" + s.originUrl
+	composeUrl := strconv.FormatInt(gotime.Now().UnixNano(), 10) + "_" + s.originUrl
 	encodeMd5 := md5.Sum([]byte(composeUrl))
 
 	return fmt.Sprintf("%x", encodeMd5)[:6]
