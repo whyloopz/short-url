@@ -1,47 +1,42 @@
 package handler
 
 import (
-	"github.com/go-playground/validator"
 	"github.com/gofiber/fiber/v2"
+	"github.com/nqmt/short-url/service"
 )
 
-func (h FiberHandler) SetupFiberRouter(router *fiber.App) {
-	validate := validator.New()
-
-	router.Post("/shortUrl", func(ctx *fiber.Ctx) error {
-		input := new(CreateShortUrlInput)
+func (h FiberHandler) SetupFiberRouter(app *fiber.App) {
+	app.Post("/", func(ctx *fiber.Ctx) error {
+		input := new(service.CreateShortUrlInput)
 
 		if err := ctx.BodyParser(input); err != nil {
-			return err
-		}
-		if err := validate.Struct(input); err != nil {
-			return err
+			return RespError(ctx, ErrBadRequestValidateInput.WithCause(err))
 		}
 
-		shortUrl, err := h.sv.CreateShortUrl(input.Url, input.ExpireTime)
+		shortUrl, err := h.sv.CreateShortUrl(input)
 		if err != nil {
-			return err
+			return RespError(ctx, err)
 		}
 
-		return ctx.JSON(&CreateShortUrlOutput{ShortUrl: shortUrl})
+		return ctx.JSON(shortUrl)
 	})
-	router.Get("/shortUrl", func(ctx *fiber.Ctx) error {
+	app.Get("/shortUrl", func(ctx *fiber.Ctx) error {
 		originUrl, err := h.sv.GetShortUrl("")
 		if err != nil {
 			return err
 		}
 
-		return ctx.JSON(&GetShortUrlOutput{OriginUrl: originUrl})
+		return ctx.JSON(&service.GetShortUrlOutput{OriginUrl: originUrl})
 	})
 
-	admin := router.Group("/admin")
+	admin := app.Group("/admin")
 	admin.Get("/shortUrl", func(ctx *fiber.Ctx) error {
 		urls, err := h.sv.AdminGetShortUrls("", "", "")
 		if err != nil {
 			return err
 		}
 
-		return ctx.JSON(&AdminGetShortUrlOutput{Urls: urls})
+		return ctx.JSON(&service.AdminGetShortUrlOutput{Urls: urls})
 	})
 	admin.Delete("/shortUrl", func(ctx *fiber.Ctx) error {
 		if err := h.sv.AdminDeleteShortUrls("", []string{""}); err != nil {

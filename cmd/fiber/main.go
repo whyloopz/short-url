@@ -7,6 +7,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/nqmt/short-url/config"
 	"github.com/nqmt/short-url/handler"
+	"github.com/nqmt/short-url/repository"
 	"github.com/nqmt/short-url/service"
 )
 
@@ -20,7 +21,10 @@ func setupMiddleware(app *fiber.App) {
 
 func main() {
 	env := config.GetEnv()
-	sv := service.New()
+
+	blacklistRepo := repository.NewBlacklist()
+	mongoRepo := repository.NewMongo()
+	sv := service.New(blacklistRepo, mongoRepo)
 	h := handler.NewFiberHandler(sv)
 
 	app := fiber.New()
