@@ -13,7 +13,7 @@ var (
 
 type Service interface {
 	CreateShortUrl(input *CreateShortUrlInput) (*CreateShortUrlOutput, error)
-	GetShortUrl(shortUrl string) (string, error)
+	GetOriginUrl(shortUrl string) (string, error)
 	AdminGetShortUrls(token, searchShortUrl, searchUrl string) ([]string, error)
 	AdminDeleteShortUrls(token string, shortUrl []string) error
 }

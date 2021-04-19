@@ -1,4 +1,4 @@
-package repository
+package mongo
 
 import (
 	"context"
@@ -7,7 +7,7 @@ import (
 )
 
 func (m Mongo) SaveShortUrl(shortUrl, originUrl string, expireAt int64) error {
-	ctx, _ := context.WithTimeout(context.Background(), time.Duration(m.insertTimeout)*time.Second)
+	ctx, _ := context.WithTimeout(context.Background(), time.Duration(m.timeout)*time.Second)
 
 	model := &ShortUrlModel{
 		ID:        shortUrl,

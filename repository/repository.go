@@ -8,4 +8,6 @@ type BlacklistRepo interface {
 //go:generate mockery --name=MongoRepo
 type MongoRepo interface {
 	SaveShortUrl(shortUrl, originUrl string, expireAt int64) error
+	GetOriginUrl(shortUrl string) (string, error)
+	IncrementHit(shortUrl string) error
 }

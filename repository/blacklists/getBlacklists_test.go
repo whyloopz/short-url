@@ -1,4 +1,4 @@
-package repository
+package blacklists
 
 import (
 	"github.com/stretchr/testify/require"

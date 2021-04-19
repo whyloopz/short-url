@@ -17,16 +17,17 @@ func (h FiberHandler) SetupFiberRouter(app *fiber.App) {
 		if err != nil {
 			return RespError(ctx, err)
 		}
+		shortUrl.SetHostName(ctx.Protocol() + "://" + ctx.Hostname())
 
 		return ctx.JSON(shortUrl)
 	})
-	app.Get("/shortUrl", func(ctx *fiber.Ctx) error {
-		originUrl, err := h.sv.GetShortUrl("")
+	app.Get("/:shortCode", func(ctx *fiber.Ctx) error {
+		originUrl, err := h.sv.GetOriginUrl(ctx.Params("shortCode"))
 		if err != nil {
-			return err
+			return RespError(ctx, err)
 		}
 
-		return ctx.JSON(&service.GetShortUrlOutput{OriginUrl: originUrl})
+		return ctx.Redirect(originUrl, fiber.StatusFound)
 	})
 
 	admin := app.Group("/admin")

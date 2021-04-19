@@ -9,7 +9,7 @@ require (
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/klauspost/compress v1.12.1 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
-	github.com/nqmt/goerror v0.0.0-20190724074922-ad61ebf703ba
+	github.com/nqmt/goerror v0.0.0-20210419163705-fae7919829f0
 	github.com/nqmt/gotime/v2 v2.0.0-20210418101555-55fe6a14941d
 	github.com/stretchr/testify v1.6.1
 	github.com/valyala/fasthttp v1.23.0 // indirect

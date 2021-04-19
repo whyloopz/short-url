@@ -1,4 +1,4 @@
-package repository
+package mongo
 
 import (
 	"context"
@@ -11,6 +11,10 @@ import (
 
 var (
 	ErrInternalServerSaveShortUrlMongoDB = goerror.DefineInternalServerError("ErrInternalServerSaveShortUrlMongoDB", "internal server error")
+	ErrInternalServerGetOriginUrlMongoDB = goerror.DefineInternalServerError("ErrInternalServerGetOriginUrlMongoDB", "internal server error")
+	ErrInternalServerIncrementHitMongoDB = goerror.DefineInternalServerError("ErrInternalServerIncrementHitMongoDB", "internal server error")
+	ErrGoneShortUrlExpired               = goerror.DefineGone("ErrGoneShortUrlExpired", "url is expire")
+	ErrNotFoundShortUrl                  = goerror.DefineGone("ErrNotFoundShortUrl", "not found url")
 )
 
 func ConnectMongo(url string) *mongo.Client {
@@ -40,12 +44,12 @@ type ShortUrlModel struct {
 
 type Mongo struct {
 	shortUrlCollection *mongo.Collection
-	insertTimeout      int
+	timeout            int
 }
 
 func NewMongoRepo(mongo *mongo.Client, database, collection string, insertTimeout int) *Mongo {
 	return &Mongo{
 		shortUrlCollection: mongo.Database(database).Collection(collection),
-		insertTimeout:      insertTimeout,
+		timeout:            insertTimeout,
 	}
 }

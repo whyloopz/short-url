@@ -3,15 +3,9 @@ package domain
 import (
 	"crypto/md5"
 	"fmt"
-	"github.com/nqmt/goerror"
 	"github.com/nqmt/gotime/v2"
 	"regexp"
 	"strconv"
-)
-
-var (
-	ErrBadRequestValidateUrl = goerror.DefineBadRequest("BadRequestValidateUrl", "url not correct format")
-	ErrInternalServerRegex   = goerror.DefineInternalServerError("ErrInternalServerRegex", "internal server error")
 )
 
 type ShortUrl struct {

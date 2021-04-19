@@ -9,6 +9,10 @@ type CreateShortUrlOutput struct {
 	ShortUrl string `json:"shortUrl"`
 }
 
+func (o *CreateShortUrlOutput) SetHostName(hostname string) {
+	o.ShortUrl = hostname + "/" + o.ShortUrl
+}
+
 type GetShortUrlOutput struct {
 	OriginUrl string `json:"originUrl"`
 }

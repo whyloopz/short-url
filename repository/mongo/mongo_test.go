@@ -1,4 +1,4 @@
-package repository
+package mongo
 
 import (
 	"context"
@@ -14,7 +14,7 @@ type MongoRepoTestSuite struct {
 }
 
 func NewMongoRepoTest() *MongoRepoTestSuite {
-	m := ConnectMongo("mongodb://localhost:6002")
+	m := ConnectMongo("mongodb://localhost:7002")
 
 	return &MongoRepoTestSuite{
 		ctx:            context.Background(),
