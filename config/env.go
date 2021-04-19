@@ -9,6 +9,8 @@ type Env struct {
 	MongoDatabaseName   string `required:"true" split_words:"true"`
 	MongoCollectionName string `required:"true" split_words:"true"`
 	MongoInsertTimeout  int    `required:"true" split_words:"true"`
+
+	Blacklists string `required:"true" split_words:"true"`
 }
 
 func GetEnv() *Env {

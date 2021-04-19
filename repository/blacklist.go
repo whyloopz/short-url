@@ -1,11 +1,13 @@
 package repository
 
-type Blacklist struct{}
+import "strings"
 
-func NewBlacklist() *Blacklist {
-	return &Blacklist{}
+type Blacklist struct {
+	list []string
 }
 
-func (b Blacklist) GetBlacklists() ([]string, error) {
-	return []string{}, nil
+func NewBlacklistRepo(blacklists string) *Blacklist {
+	return &Blacklist{
+		list: strings.Split(blacklists, ","),
+	}
 }

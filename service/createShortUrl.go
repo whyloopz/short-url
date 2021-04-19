@@ -14,10 +14,7 @@ func (s ShortUrl) CreateShortUrl(input *CreateShortUrlInput) (*CreateShortUrlOut
 		return nil, err
 	}
 
-	blacklists, err := s.blacklistRepo.GetBlacklists()
-	if err != nil {
-		return nil, err
-	}
+	blacklists := s.blacklistRepo.GetBlacklists()
 	if domainShortUrl.IsBlackList(blacklists) {
 		return nil, ErrBadRequestBlacklistUrl
 	}

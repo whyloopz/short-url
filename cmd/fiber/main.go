@@ -23,7 +23,7 @@ func main() {
 	env := config.GetEnv()
 
 	mongoClient := repository.ConnectMongo(env.MongoUrl)
-	blacklistRepo := repository.NewBlacklist()
+	blacklistRepo := repository.NewBlacklistRepo(env.Blacklists)
 	mongoRepo := repository.NewMongoRepo(mongoClient, env.MongoDatabaseName, env.MongoCollectionName, env.MongoInsertTimeout)
 
 	sv := service.New(blacklistRepo, mongoRepo)

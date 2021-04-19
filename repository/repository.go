@@ -2,7 +2,7 @@ package repository
 
 //go:generate mockery --name=BlacklistRepo
 type BlacklistRepo interface {
-	GetBlacklists() ([]string, error)
+	GetBlacklists() []string
 }
 
 //go:generate mockery --name=MongoRepo
