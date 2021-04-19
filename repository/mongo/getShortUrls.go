@@ -33,12 +33,12 @@ func (m Mongo) GetShortUrls(searchShortUrl, searchUrl string) ([]*ShortUrlModel,
 
 	cursor, err := m.shortUrlCollection.Find(ctx, filter)
 	if err != nil {
-		return nil, err
+		return nil, ErrInternalServerGetShortUrlsFindMongoDB
 	}
 
 	var shortUrls []*ShortUrlModel
 	if err := cursor.All(ctx, &shortUrls); err != nil {
-		return []*ShortUrlModel{}, err
+		return []*ShortUrlModel{}, ErrInternalServerGetShortUrlsCursorMongoDB
 	}
 
 	return shortUrls, nil

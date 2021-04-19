@@ -10,11 +10,14 @@ import (
 )
 
 var (
-	ErrInternalServerSaveShortUrlMongoDB = goerror.DefineInternalServerError("ErrInternalServerSaveShortUrlMongoDB", "internal server error")
-	ErrInternalServerGetOriginUrlMongoDB = goerror.DefineInternalServerError("ErrInternalServerGetOriginUrlMongoDB", "internal server error")
-	ErrInternalServerIncrementHitMongoDB = goerror.DefineInternalServerError("ErrInternalServerIncrementHitMongoDB", "internal server error")
-	ErrGoneShortUrlExpired               = goerror.DefineGone("ErrGoneShortUrlExpired", "url is expire")
-	ErrNotFoundShortUrl                  = goerror.DefineGone("ErrNotFoundShortUrl", "not found url")
+	ErrInternalServerSaveShortUrlMongoDB       = goerror.DefineInternalServerError("ErrInternalServerSaveShortUrlMongoDB", "internal server error")
+	ErrInternalServerGetShortUrlsFindMongoDB   = goerror.DefineInternalServerError("ErrInternalServerSaveShortUrlMongoDB", "internal server error")
+	ErrInternalServerGetShortUrlsCursorMongoDB = goerror.DefineInternalServerError("ErrInternalServerSaveShortUrlMongoDB", "internal server error")
+	ErrInternalServerGetOriginUrlMongoDB       = goerror.DefineInternalServerError("ErrInternalServerGetOriginUrlMongoDB", "internal server error")
+	ErrInternalServerIncrementHitMongoDB       = goerror.DefineInternalServerError("ErrInternalServerIncrementHitMongoDB", "internal server error")
+	ErrInternalServerSetExpireUrlMongoDB       = goerror.DefineInternalServerError("ErrInternalServerIncrementHitMongoDB", "internal server error")
+	ErrGoneShortUrlExpired                     = goerror.DefineGone("ErrGoneShortUrlExpired", "url is expire")
+	ErrNotFoundShortUrl                        = goerror.DefineGone("ErrNotFoundShortUrl", "not found url")
 )
 
 func ConnectMongo(url string) *mongo.Client {

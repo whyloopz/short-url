@@ -13,4 +13,5 @@ type MongoRepo interface {
 	GetOriginUrl(shortUrl string) (string, error)
 	IncrementHit(shortUrl string) error
 	GetShortUrls(searchShortUrl, searchUrl string) ([]*mongo.ShortUrlModel, error)
+	SetExpireUrl(url []string) error
 }

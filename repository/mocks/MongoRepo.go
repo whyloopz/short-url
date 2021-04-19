@@ -83,3 +83,17 @@ func (_m *MongoRepo) SaveShortUrl(shortUrl string, originUrl string, expireAt in
 
 	return r0
 }
+
+// SetExpireUrl provides a mock function with given fields: url
+func (_m *MongoRepo) SetExpireUrl(url []string) error {
+	ret := _m.Called(url)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func([]string) error); ok {
+		r0 = rf(url)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}

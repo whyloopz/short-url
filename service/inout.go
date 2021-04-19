@@ -22,3 +22,7 @@ type GetShortUrlOutput struct {
 type AdminGetShortUrlOutput struct {
 	Urls []*mongo.ShortUrlModel `json:"urls"`
 }
+
+type AdminDeleteShortUrlsInput struct {
+	ShortUrl []string `json:"shortUrl" validate:"required,gt=0"`
+}

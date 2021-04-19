@@ -40,7 +40,13 @@ func (h FiberHandler) SetupFiberRouter(app *fiber.App) {
 		return ctx.JSON(&service.AdminGetShortUrlOutput{Urls: urls})
 	})
 	admin.Delete("/shortUrl", func(ctx *fiber.Ctx) error {
-		if err := h.sv.AdminDeleteShortUrls("", []string{""}); err != nil {
+		input := new(service.AdminDeleteShortUrlsInput)
+
+		if err := ctx.BodyParser(input); err != nil {
+			return RespError(ctx, ErrBadRequestValidateInput.WithCause(err))
+		}
+
+		if err := h.sv.AdminDeleteShortUrls(ctx.Get("Authorization"), input); err != nil {
 			return RespError(ctx, err)
 		}
 

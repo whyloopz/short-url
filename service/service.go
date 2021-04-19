@@ -9,6 +9,7 @@ import (
 
 var (
 	ErrBadRequestValidateInput       = goerror.DefineBadRequest("ErrBadRequestValidateInput", "input not correct format")
+	ErrNotFoundShortUrlInput         = goerror.DefineNotFound("ErrBadRequestValidateInput", "short url not found")
 	ErrBadRequestBlacklistUrl        = goerror.DefineBadRequest("ErrBadRequestBlacklistUrl", "url is blacklist")
 	ErrUnauthorizedAdminGetShortUrls = goerror.DefineUnauthorized("ErrBadRequestBlacklistUrl", "unauthorized")
 )
@@ -17,7 +18,7 @@ type Service interface {
 	CreateShortUrl(input *CreateShortUrlInput) (*CreateShortUrlOutput, error)
 	GetOriginUrl(shortUrl string) (string, error)
 	AdminGetShortUrls(token, searchShortUrl, searchUrl string) ([]*mongo.ShortUrlModel, error)
-	AdminDeleteShortUrls(token string, shortUrl []string) error
+	AdminDeleteShortUrls(token string, input *AdminDeleteShortUrlsInput) error
 }
 
 type ShortUrl struct {
