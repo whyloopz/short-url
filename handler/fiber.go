@@ -34,14 +34,14 @@ func (h FiberHandler) SetupFiberRouter(app *fiber.App) {
 	admin.Get("/shortUrl", func(ctx *fiber.Ctx) error {
 		urls, err := h.sv.AdminGetShortUrls("", "", "")
 		if err != nil {
-			return err
+			return RespError(ctx, err)
 		}
 
 		return ctx.JSON(&service.AdminGetShortUrlOutput{Urls: urls})
 	})
 	admin.Delete("/shortUrl", func(ctx *fiber.Ctx) error {
 		if err := h.sv.AdminDeleteShortUrls("", []string{""}); err != nil {
-			return err
+			return RespError(ctx, err)
 		}
 
 		return ctx.SendStatus(fiber.StatusOK)
