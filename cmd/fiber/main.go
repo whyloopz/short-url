@@ -24,7 +24,7 @@ func main() {
 
 	mongoClient := repository.ConnectMongo(env.MongoUrl)
 	blacklistRepo := repository.NewBlacklist()
-	mongoRepo := repository.NewMongo(mongoClient, env.MongoDatabaseName, env.MongoCollectionName, env.MongoInsertTimeout)
+	mongoRepo := repository.NewMongoRepo(mongoClient, env.MongoDatabaseName, env.MongoCollectionName, env.MongoInsertTimeout)
 
 	sv := service.New(blacklistRepo, mongoRepo)
 	h := handler.NewFiberHandler(sv)
