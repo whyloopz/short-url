@@ -22,8 +22,10 @@ func setupMiddleware(app *fiber.App) {
 func main() {
 	env := config.GetEnv()
 
+	mongoClient := repository.ConnectMongo(env.MongoUrl)
 	blacklistRepo := repository.NewBlacklist()
-	mongoRepo := repository.NewMongo()
+	mongoRepo := repository.NewMongo(mongoClient, env.MongoDatabaseName, env.MongoCollectionName, env.MongoInsertTimeout)
+
 	sv := service.New(blacklistRepo, mongoRepo)
 	h := handler.NewFiberHandler(sv)
 

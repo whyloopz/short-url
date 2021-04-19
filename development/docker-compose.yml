@@ -1,0 +1,8 @@
+version: "3.7"
+services:
+  mongodb:
+    image: mongo:4
+    restart: always
+    ports:
+      - 6002:27017
+    container_name: mongodb

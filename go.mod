@@ -14,6 +14,7 @@ require (
 	github.com/stretchr/testify v1.6.1
 	github.com/valyala/fasthttp v1.23.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
+	go.mongodb.org/mongo-driver v1.5.1
 	golang.org/x/sys v0.0.0-20210415045647-66c3f260301c // indirect
 	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
 )
