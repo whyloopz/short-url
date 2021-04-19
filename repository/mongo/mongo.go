@@ -35,11 +35,11 @@ func ConnectMongo(url string) *mongo.Client {
 }
 
 type ShortUrlModel struct {
-	ID        string `bson:"_id"`
-	Url       string `bson:"url"`
-	Hit       int    `bson:"hit"`
-	CreatedAt int64  `bson:"createAt"`
-	ExpireAt  int64  `bson:"expireAt"`
+	ID        string `json:"_id" bson:"_id"`
+	Url       string `json:"url" bson:"url"`
+	Hit       int    `json:"hit" bson:"hit"`
+	CreatedAt int64  `json:"createAt" bson:"createAt"`
+	ExpireAt  int64  `json:"expireAt" bson:"expireAt"`
 }
 
 type Mongo struct {

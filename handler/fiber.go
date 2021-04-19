@@ -32,7 +32,7 @@ func (h FiberHandler) SetupFiberRouter(app *fiber.App) {
 
 	admin := app.Group("/admin")
 	admin.Get("/shortUrl", func(ctx *fiber.Ctx) error {
-		urls, err := h.sv.AdminGetShortUrls("", "", "")
+		urls, err := h.sv.AdminGetShortUrls(ctx.Get("Authorization"), ctx.Query("shortUrl"), ctx.Query("url"))
 		if err != nil {
 			return RespError(ctx, err)
 		}

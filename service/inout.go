@@ -1,5 +1,7 @@
 package service
 
+import "github.com/nqmt/short-url/repository/mongo"
+
 type CreateShortUrlInput struct {
 	Url        string `json:"url" validate:"required"`
 	ExpireTime int    `json:"expireTime" validate:"gte=0,lte=365"`
@@ -18,5 +20,5 @@ type GetShortUrlOutput struct {
 }
 
 type AdminGetShortUrlOutput struct {
-	Urls []string `json:"urls"`
+	Urls []*mongo.ShortUrlModel `json:"urls"`
 }
