@@ -14,19 +14,19 @@ func TestMongo_SaveShortUrl(t *testing.T) {
 	suite.Setup()
 
 	gotime.Freeze(time.Date(2020, 06, 6, 6, 6, 6, 6, time.UTC))
-	err := suite.repo.SaveShortUrl("z6ff11", "http://www.google.com", 1650334869)
+	err := suite.repo.SaveShortUrl("test04", "http://www.google.com", 1650334869)
 	require.NoError(t, err)
 
 	savedData := new(ShortUrlModel)
 	err = suite.mongo.
 		Database(suite.databaseName).
 		Collection(suite.collectionName).
-		FindOne(context.Background(), bson.D{{"_id", "z6ff11"}}).
+		FindOne(context.Background(), bson.D{{"_id", "test04"}}).
 		Decode(savedData)
 	require.NoError(t, err)
 
 	expect := &ShortUrlModel{
-		ID:        "z6ff11",
+		ID:        "test04",
 		Url:       "http://www.google.com",
 		Hit:       0,
 		CreatedAt: 1591423566,
