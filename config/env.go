@@ -11,6 +11,7 @@ type Env struct {
 	MongoTimeout        int    `required:"true" split_words:"true"`
 
 	Blacklists string `required:"true" split_words:"true"`
+	AdminToken string `required:"true" split_words:"true"`
 }
 
 func GetEnv() *Env {

@@ -22,12 +22,14 @@ type ShortUrl struct {
 	validate      *validator.Validate
 	blacklistRepo repository.BlacklistRepo
 	mongoRepo     repository.MongoRepo
+	adminToken    string
 }
 
-func New(blacklistRepo repository.BlacklistRepo, MongoRepo repository.MongoRepo) Service {
+func New(blacklistRepo repository.BlacklistRepo, MongoRepo repository.MongoRepo, adminToken string) Service {
 	return &ShortUrl{
 		validate:      validator.New(),
 		blacklistRepo: blacklistRepo,
 		mongoRepo:     MongoRepo,
+		adminToken:    adminToken,
 	}
 }

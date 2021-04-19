@@ -14,7 +14,7 @@ func TestShortUrl_GetOriginUrl_Success(t *testing.T) {
 	mMongoRepo.On("GetOriginUrl", "123546").Return("http://www.google.com", nil)
 	mMongoRepo.On("IncrementHit", "123546").Return(nil)
 
-	sv := New(mBlacklistRepo, mMongoRepo)
+	sv := New(mBlacklistRepo, mMongoRepo, "")
 
 	input := "123546"
 	expect := "http://www.google.com"

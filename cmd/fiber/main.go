@@ -27,7 +27,7 @@ func main() {
 	blacklistRepo := blacklists.NewBlacklistRepo(env.Blacklists)
 	mongoRepo := mongo.NewMongoRepo(mongoClient, env.MongoDatabaseName, env.MongoCollectionName, env.MongoTimeout)
 
-	sv := service.New(blacklistRepo, mongoRepo)
+	sv := service.New(blacklistRepo, mongoRepo, env.AdminToken)
 	h := handler.NewFiberHandler(sv)
 
 	app := fiber.New()

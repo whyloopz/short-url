@@ -17,7 +17,7 @@ func TestShortUrl_CreateShortUrl_Success(t *testing.T) {
 	mMongoRepo.On("SaveShortUrl", "c91cfc", "http://www.test.com", int64(1588565044)).Return(nil)
 	gotime.Freeze(time.Date(2020, 4, 4, 4, 4, 4, 4, time.UTC))
 
-	sv := New(mBlacklistRepo, mMongoRepo)
+	sv := New(mBlacklistRepo, mMongoRepo, "")
 
 	// input & output expect
 	input := &CreateShortUrlInput{
