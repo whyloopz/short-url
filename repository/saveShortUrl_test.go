@@ -17,8 +17,12 @@ func TestMongo_SaveShortUrl(t *testing.T) {
 	err := suite.repo.SaveShortUrl("z6ff11", "http://www.google.com", 1650334869)
 	require.NoError(t, err)
 
-	saveData := new(ShortUrlModel)
-	err = suite.mongo.Database("test").Collection("shortUrl").FindOne(context.Background(), bson.D{{"_id", "z6ff11"}}).Decode(saveData)
+	savedData := new(ShortUrlModel)
+	err = suite.mongo.
+		Database(suite.databaseName).
+		Collection(suite.collectionName).
+		FindOne(context.Background(), bson.D{{"_id", "z6ff11"}}).
+		Decode(savedData)
 	require.NoError(t, err)
 
 	expect := &ShortUrlModel{
@@ -28,5 +32,5 @@ func TestMongo_SaveShortUrl(t *testing.T) {
 		CreatedAt: 1591423566,
 		ExpireAt:  1650334869,
 	}
-	require.Equal(t, expect, saveData)
+	require.Equal(t, expect, savedData)
 }

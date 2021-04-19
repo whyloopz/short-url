@@ -2,10 +2,15 @@ package repository
 
 import (
 	"context"
+	"github.com/nqmt/goerror"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 	"time"
+)
+
+var (
+	ErrInternalServerSaveShortUrlMongoDB = goerror.DefineInternalServerError("ErrInternalServerSaveShortUrlMongoDB", "internal server error")
 )
 
 func ConnectMongo(url string) *mongo.Client {

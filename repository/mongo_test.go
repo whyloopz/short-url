@@ -6,6 +6,7 @@ import (
 )
 
 type MongoRepoTestSuite struct {
+	ctx            context.Context
 	mongo          *mongo.Client
 	repo           *Mongo
 	databaseName   string
@@ -16,6 +17,7 @@ func NewMongoRepoTest() *MongoRepoTestSuite {
 	m := ConnectMongo("mongodb://localhost:6002")
 
 	return &MongoRepoTestSuite{
+		ctx:            context.Background(),
 		mongo:          m,
 		repo:           NewMongoRepo(m, "test", "shortUrl", 1),
 		databaseName:   "test",

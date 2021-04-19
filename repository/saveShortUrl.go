@@ -19,7 +19,7 @@ func (m Mongo) SaveShortUrl(shortUrl, originUrl string, expireAt int64) error {
 
 	_, err := m.shortUrlCollection.InsertOne(ctx, model)
 	if err != nil {
-		return err
+		return ErrInternalServerSaveShortUrlMongoDB.WithCause(err)
 	}
 
 	return nil
