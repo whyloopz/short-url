@@ -1,0 +1,120 @@
+{
+	"info": {
+		"_postman_id": "05b75276-f0b0-4728-b54a-189c75ccc314",
+		"name": "rabbit-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Short url",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"url\": \"https://docs.gofiber.io/\",\n    \"expireTime\": 30\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:7001",
+					"host": [
+						"localhost"
+					],
+					"port": "7001"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get short url",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:7001/fda718",
+					"host": [
+						"localhost"
+					],
+					"port": "7001",
+					"path": [
+						"fda718"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin get short url",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "root",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:7001/admin/shortUrl?shortUrl=5a6&url=.io",
+					"host": [
+						"localhost"
+					],
+					"port": "7001",
+					"path": [
+						"admin",
+						"shortUrl"
+					],
+					"query": [
+						{
+							"key": "shortUrl",
+							"value": "5a6"
+						},
+						{
+							"key": "url",
+							"value": ".io"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin delete short url",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "root",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"shortUrl\": [\"fda718\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:7001/admin/shortUrl",
+					"host": [
+						"localhost"
+					],
+					"port": "7001",
+					"path": [
+						"admin",
+						"shortUrl"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

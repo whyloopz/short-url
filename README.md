@@ -26,6 +26,7 @@
 - ```make setup``` (start db)
 - ```source development/dev.env``` (setup env)
 - ```make dev```
+- import postman ```postman.json```
 
 ## MakeFile Command
 
